@@ -6,7 +6,7 @@
 //  Copyright © 2017 lei zhang. All rights reserved.
 //
 
-#import "ToDoItem+CoreDataProperties.h"
+#import "ToDoItem+CoreDataClass.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,6 +27,8 @@ FOUNDATION_EXPORT NSString *const toDoItemName;
 -(void)addToDoItemByTitle:(NSString *)title complete:(BOOL)isComplete priority:( NSUInteger)priority startDate:(nullable NSDate *)startDate dueDate:(nullable NSDate *)dueDate;
 
 -(void)deleteToDoItemByTitle:(NSString *)itemTitle;
+
+-(void)deleteAllToDoItems;
 
 - (void)saveContext;
 

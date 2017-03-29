@@ -8,15 +8,31 @@
 
 #import "EZHTableViewController.h"
 #import "EZHCoreDataManager.h"
+#import "EZHTableViewCell.h"
+
+NSString *cellName = @"ToDoCell";
 
 @interface EZHTableViewController () {
   EZHCoreDataManager *coreDataManager;
 }
 
+@property (nonatomic, strong) NSArray<ToDoItem *> *toDoItems;
+
 @end
 
 @implementation EZHTableViewController
 
+#pragma mark - Getter/Setter
+
+-(NSArray<ToDoItem *> *)toDoItems {
+  if (!_toDoItems) {
+    _toDoItems = [coreDataManager fetchAllToDoItems];
+  }
+  
+  return _toDoItems;
+}
+
+#pragma mark - View Controller
 - (void)viewDidLoad {
   [super viewDidLoad];
   
@@ -35,12 +51,48 @@
 
 #pragma mark - add/delete core data entity
 
+-(void)refreshTableViewCV {
+  _toDoItems = [coreDataManager fetchAllToDoItems];
+  [self.tableView reloadData];
+}
+
 -(void)addToDoItem {
+  UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add a ToDo item" message:@"" preferredStyle:UIAlertControllerStyleAlert];
   
+  [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    textField.placeholder = @"Enter title here";
+    textField.tag = 0;
+  }];
+  
+  __weak EZHTableViewController *weakSelf = self;
+  UIAlertAction *add = [UIAlertAction actionWithTitle:@"Add"
+                                      style:UIAlertActionStyleDefault
+                                      handler:
+                          ^(UIAlertAction * _Nonnull action) {
+                              [[EZHCoreDataManager sharedManager]
+                                    addToDoItemByTitle:alertController.textFields.firstObject.text
+                                    complete:NO
+                                    priority:5
+                                    startDate:nil
+                                    dueDate:nil];
+                            [weakSelf refreshTableViewCV];
+                          }
+                        ];
+  
+  [alertController addAction:add];
+  
+  UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                         style:UIAlertActionStyleCancel
+                                         handler:nil];
+  
+  [alertController addAction:cancel];
+  
+  [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)deleteAllToDoItems {
-  
+  [coreDataManager deleteAllToDoItems];
+  [self refreshTableViewCV];
 }
 
 #pragma mark - Table view data source
@@ -53,15 +105,16 @@
     return [[coreDataManager fetchAllToDoItems] count];;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+  EZHTableViewCell *cell = (EZHTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
     
-    // Configure the cell...
-    
-    return cell;
+  cell.titleLb.text = self.toDoItems[indexPath.row].title;
+  [cell.dateLb setHidden:YES];
+  
+  return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

@@ -63,6 +63,19 @@ NSString *const toDoItemName = @"ToDoItem";
   }
 }
 
+-(void)deleteAllToDoItems {
+  NSError *fetchError;
+  
+  NSArray<ToDoItem *> *allItems = [self.moc executeFetchRequest:[ToDoItem fetchRequest] error:&fetchError];
+  
+  if (!fetchError) {
+    for(ToDoItem *item in allItems) {
+      [self.moc deleteObject:item];
+    }
+  }
+}
+
+
 #pragma mark - Core Data Stack
 
 @synthesize persistentContainer = _persistentContainer;

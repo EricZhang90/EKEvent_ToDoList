@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface EZHTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLb;
+@property (weak, nonatomic) IBOutlet UILabel *dateLb;
 
 @end

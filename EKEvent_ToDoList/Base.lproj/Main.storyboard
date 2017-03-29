@@ -24,7 +24,37 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NIv-ZS-w9d" id="ed8-iA-RSA">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXz-pE-M02">
+                                            <rect key="frame" x="15" y="0.0" width="350" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="wfj-S6-846"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfE-F3-R1a">
+                                            <rect key="frame" x="15" y="25" width="355" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="oXz-pE-M02" firstAttribute="top" secondItem="ed8-iA-RSA" secondAttribute="top" id="0e7-wj-Xny"/>
+                                        <constraint firstItem="oXz-pE-M02" firstAttribute="leading" secondItem="ed8-iA-RSA" secondAttribute="leading" constant="15" id="G7f-EL-HdH"/>
+                                        <constraint firstAttribute="bottom" secondItem="AfE-F3-R1a" secondAttribute="bottom" constant="5" id="GfZ-DJ-fne"/>
+                                        <constraint firstAttribute="trailing" secondItem="oXz-pE-M02" secondAttribute="trailing" constant="10" id="hn2-cS-erU"/>
+                                        <constraint firstItem="AfE-F3-R1a" firstAttribute="leading" secondItem="ed8-iA-RSA" secondAttribute="leading" constant="15" id="mDP-4P-5E2"/>
+                                        <constraint firstItem="AfE-F3-R1a" firstAttribute="top" secondItem="oXz-pE-M02" secondAttribute="bottom" constant="5" id="rFi-ea-x9g"/>
+                                        <constraint firstAttribute="trailing" secondItem="AfE-F3-R1a" secondAttribute="trailing" constant="5" id="vo5-Oe-228"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateLb" destination="AfE-F3-R1a" id="mWl-fH-6PJ"/>
+                                    <outlet property="titleLb" destination="oXz-pE-M02" id="ZHN-y9-BhO"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
