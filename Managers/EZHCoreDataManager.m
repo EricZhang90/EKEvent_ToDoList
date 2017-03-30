@@ -65,7 +65,6 @@ NSString *const toDoItemName = @"ToDoItem";
   entity.startDate = startDate;
   entity.dueDate = dueDate;
   entity.idx = idx;
-  NSLog(@"idx added: %d", entity.idx);
   
   [self saveContext];
 }

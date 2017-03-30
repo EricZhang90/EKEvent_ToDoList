@@ -171,7 +171,7 @@ NSString *cellName = @"ToDoCell";
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     int itemIdx = self.toDoItems[indexPath.row].idx;
     [coreDataManager deleteToDoItemByIdx:itemIdx];
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self refreshTableView];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
