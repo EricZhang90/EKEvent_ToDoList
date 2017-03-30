@@ -29,17 +29,34 @@ NSString *const toDoItemName = @"ToDoItem";
 
 -(NSArray *)fetchAllToDoItems {
   
-  NSError *err;
-  NSArray<ToDoItem *> *result = [self.moc executeFetchRequest:[ToDoItem fetchRequest] error:&err];
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  fetchRequest.entity = [NSEntityDescription entityForName:toDoItemName inManagedObjectContext:self.moc];
+  fetchRequest.predicate = [NSPredicate predicateWithValue:YES];
+  fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"idx" ascending:YES]];
   
-  if (err) {
+  NSError *error = nil;
+  NSArray<ToDoItem*> *fetchedObjects = [self.moc executeFetchRequest:fetchRequest error:&error];
+  
+  if (fetchedObjects == nil) {
     return @[];
   }
   
-  return result;
+  return fetchedObjects;
+}
+
+-(int)getMaxIdx {
+  NSArray<ToDoItem *> *items = [self fetchAllToDoItems];
+  if (items) {
+    return items.lastObject.idx;
+  }
+  else {
+    return 1;
+  }
+    
 }
 
 -(void)addToDoItemByTitle:(NSString *)title complete:(BOOL)isComplete priority:(NSUInteger)priority startDate:(NSDate *)startDate dueDate:(NSDate *)dueDate{
+  int idx = [self getMaxIdx] + 1;
   ToDoItem *entity = [NSEntityDescription insertNewObjectForEntityForName:toDoItemName inManagedObjectContext:self.moc];
   
   entity.title = title;
@@ -47,19 +64,22 @@ NSString *const toDoItemName = @"ToDoItem";
   entity.priority = priority;
   entity.startDate = startDate;
   entity.dueDate = dueDate;
+  entity.idx = idx;
+  NSLog(@"idx added: %d", entity.idx);
   
   [self saveContext];
 }
 
--(void)deleteToDoItemByTitle:(NSString *)itemTitle {
+-(void)deleteToDoItemByIdx:(int)itemIdx {
   NSFetchRequest *fetchDeleteItemRequest = [NSFetchRequest fetchRequestWithEntityName:toDoItemName];
-  fetchDeleteItemRequest.predicate = [NSPredicate predicateWithFormat:@"title = %@", itemTitle];
+  fetchDeleteItemRequest.predicate = [NSPredicate predicateWithFormat:@"idx = %d", itemIdx];
 
   NSError *err;
   NSArray <ToDoItem *> *results = [self.moc executeFetchRequest:fetchDeleteItemRequest error:&err];
   
   if (!err && [results count]) {
     [self.moc deleteObject:[results firstObject]];
+    [self saveContext];
   }
 }
 
@@ -73,6 +93,7 @@ NSString *const toDoItemName = @"ToDoItem";
       [self.moc deleteObject:item];
     }
   }
+  [self saveContext];
 }
 
 

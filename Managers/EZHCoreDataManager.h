@@ -26,7 +26,7 @@ FOUNDATION_EXPORT NSString *const toDoItemName;
 
 -(void)addToDoItemByTitle:(NSString *)title complete:(BOOL)isComplete priority:( NSUInteger)priority startDate:(nullable NSDate *)startDate dueDate:(nullable NSDate *)dueDate;
 
--(void)deleteToDoItemByTitle:(NSString *)itemTitle;
+-(void)deleteToDoItemByIdx:(int)itemIdx;
 
 -(void)deleteAllToDoItems;
 

@@ -47,16 +47,29 @@ NSString *cellName = @"ToDoCell";
                                             initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
                                             target:self
                                             action:@selector(deleteAllToDoItems)];
+  
+  UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+  [self.tableView addGestureRecognizer:longPressGesture];
+  
+  self.navigationItem.prompt = @"Long press to enable edit mode";
 }
 
-#pragma mark - add/delete core data entity
+-(void)viewWillAppear:(BOOL)animated {
+  self.navigationItem.prompt = @"Long press to enable edit mode";
+  [self.tableView setEditing:NO];
+}
 
--(void)refreshTableViewCV {
+#pragma mark - add/delete/modify core data entity
+
+-(void)refreshTableView {
   _toDoItems = [coreDataManager fetchAllToDoItems];
   [self.tableView reloadData];
 }
 
 -(void)addToDoItem {
+  [self.tableView setEditing:NO];
+  self.navigationItem.prompt = @"Long press to enable edit mode";
+  
   UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add a ToDo item" message:@"" preferredStyle:UIAlertControllerStyleAlert];
   
   [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -75,7 +88,7 @@ NSString *cellName = @"ToDoCell";
                                     priority:5
                                     startDate:nil
                                     dueDate:nil];
-                            [weakSelf refreshTableViewCV];
+                            [weakSelf refreshTableView];
                           }
                         ];
   
@@ -91,8 +104,32 @@ NSString *cellName = @"ToDoCell";
 }
 
 -(void)deleteAllToDoItems {
+  self.navigationItem.prompt = @"Long press to enable edit mode";
+  [self.tableView setEditing:NO];
+  
   [coreDataManager deleteAllToDoItems];
-  [self refreshTableViewCV];
+  [self refreshTableView];
+}
+
+#pragma mark - Guesture
+
+-(void)longPress:(id)sender {
+
+  UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
+  UIGestureRecognizerState state = longPress.state;
+  
+  if (state != UIGestureRecognizerStateBegan)
+    return;
+  
+  if (self.tableView.editing) {
+    [self.tableView setEditing:NO];
+    self.navigationItem.prompt = @"Long press to enable edit mode";
+  }
+  else {
+    [self.tableView setEditing:YES];
+    self.navigationItem.prompt = @"Long press to disable edit mode";
+  }
+  
 }
 
 #pragma mark - Table view data source
@@ -108,47 +145,61 @@ NSString *cellName = @"ToDoCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   EZHTableViewCell *cell = (EZHTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
-    
-  cell.titleLb.text = self.toDoItems[indexPath.row].title;
-  [cell.dateLb setHidden:YES];
+  
+  ToDoItem *item = self.toDoItems[indexPath.row];
+  cell.titleLb.text = item.title;
+  if (item.dueDate) {
+    cell.dateLb.text = [@"Dueday: " stringByAppendingString:item.dueDate.description];
+  }
+  else {
+    cell.dateLb.text = nil;
+  }
   
   return cell;
 }
 
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    int itemIdx = self.toDoItems[indexPath.row].idx;
+    [coreDataManager deleteToDoItemByIdx:itemIdx];
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
-/*
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+  
+  ToDoItem* source = self.toDoItems[fromIndexPath.row];
+  ToDoItem* destination = self.toDoItems[toIndexPath.row];
+  
+  int tmpIdx = source.idx;
+  source.idx = destination.idx;
+  destination.idx = tmpIdx;
+  
+  [coreDataManager saveContext];
+  
+  [self refreshTableView];
 }
-*/
 
-/*
+
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
 
 /*
 #pragma mark - Navigation

@@ -16,6 +16,7 @@
 		F6513B041E8B5E8800F81FC0 /* EZHCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F6513B031E8B5E8800F81FC0 /* EZHCoreDataManager.m */; };
 		F6513B1B1E8B6BCC00F81FC0 /* EZHTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6513B1A1E8B6BCC00F81FC0 /* EZHTableViewCell.m */; };
 		F6513B1E1E8B6BD800F81FC0 /* EZHTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6513B1D1E8B6BD800F81FC0 /* EZHTableViewController.m */; };
+		F6513B271E8C7F2700F81FC0 /* EZHEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F6513B261E8C7F2700F81FC0 /* EZHEventManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		F6513B1A1E8B6BCC00F81FC0 /* EZHTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZHTableViewCell.m; path = VC/EZHTableViewCell.m; sourceTree = "<group>"; };
 		F6513B1C1E8B6BD800F81FC0 /* EZHTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZHTableViewController.h; path = VC/EZHTableViewController.h; sourceTree = "<group>"; };
 		F6513B1D1E8B6BD800F81FC0 /* EZHTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZHTableViewController.m; path = VC/EZHTableViewController.m; sourceTree = "<group>"; };
+		F6513B251E8C7F2700F81FC0 /* EZHEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZHEventManager.h; path = Managers/EZHEventManager.h; sourceTree = SOURCE_ROOT; };
+		F6513B261E8C7F2700F81FC0 /* EZHEventManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZHEventManager.m; path = Managers/EZHEventManager.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 			children = (
 				F6513B021E8B5E8800F81FC0 /* EZHCoreDataManager.h */,
 				F6513B031E8B5E8800F81FC0 /* EZHCoreDataManager.m */,
+				F6513B251E8C7F2700F81FC0 /* EZHEventManager.h */,
+				F6513B261E8C7F2700F81FC0 /* EZHEventManager.m */,
 			);
 			name = Managers;
 			path = EKEvent_ToDoList;
@@ -190,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6513AEF1E8B5DF900F81FC0 /* EKEvent_ToDoList.xcdatamodeld in Sources */,
+				F6513B271E8C7F2700F81FC0 /* EZHEventManager.m in Sources */,
 				F6513B1E1E8B6BD800F81FC0 /* EZHTableViewController.m in Sources */,
 				F6513B041E8B5E8800F81FC0 /* EZHCoreDataManager.m in Sources */,
 				F6513AE61E8B5DF900F81FC0 /* AppDelegate.m in Sources */,
