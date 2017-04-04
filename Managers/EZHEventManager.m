@@ -16,6 +16,12 @@
 
 @property (nonatomic, nonnull, strong) NSArray<EKReminder *> *reminders;
 
+@property (nonatomic, nonnull, strong) EKEventStore *eventStore;
+
+@property (nonatomic, nonnull, strong) EKCalendar *calendar;
+
+@property (nonatomic, assign) BOOL isAccessToEventStoreGranted;
+
 -(void)updateAuthorizationStatus;
 
 @end

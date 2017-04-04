@@ -20,12 +20,6 @@ typedef void (^EZHFetchRemindersCompletionBlock)(NSArray<EKReminder *>* _Nullabl
 
 +(id)sharedManager;
 
-@property (nonatomic, strong) EKEventStore *eventStore;
-
-@property (nonatomic, strong) EKCalendar *calendar;
-
-@property (nonatomic, assign) BOOL isAccessToEventStoreGranted;
-
 -(void)fetchReminderWith:(nullable EZHFetchRemindersCompletionBlock)block;
 
 -(void)addReminder:(ToDoItem *)toDoItem;
