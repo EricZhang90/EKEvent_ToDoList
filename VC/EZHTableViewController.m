@@ -9,11 +9,12 @@
 #import "EZHTableViewController.h"
 #import "EZHCoreDataManager.h"
 #import "EZHTableViewCell.h"
+#include "EZHHelper.h"
 
-NSString *cellName = @"ToDoCell";
 
 @interface EZHTableViewController () {
   EZHCoreDataManager *coreDataManager;
+  NSString *cellName;
 }
 
 @property (nonatomic, strong) NSArray<ToDoItem *> *toDoItems;
@@ -36,6 +37,8 @@ NSString *cellName = @"ToDoCell";
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  cellName = @"ToDoCell";
+  
   coreDataManager = [EZHCoreDataManager sharedManager];
   
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -44,9 +47,9 @@ NSString *cellName = @"ToDoCell";
                                             action:@selector(addToDoItem)];
   
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-                                            initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
-                                            target:self
-                                            action:@selector(deleteAllToDoItems)];
+                                           initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+                                           target:self
+                                           action:@selector(deleteAllToDoItems)];
   
   UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
   [self.tableView addGestureRecognizer:longPressGesture];
@@ -79,24 +82,24 @@ NSString *cellName = @"ToDoCell";
   
   __weak EZHTableViewController *weakSelf = self;
   UIAlertAction *add = [UIAlertAction actionWithTitle:@"Add"
-                                      style:UIAlertActionStyleDefault
-                                      handler:
-                          ^(UIAlertAction * _Nonnull action) {
-                              [[EZHCoreDataManager sharedManager]
-                                    addToDoItemByTitle:alertController.textFields.firstObject.text
-                                    complete:NO
-                                    priority:5
-                                    startDate:nil
-                                    dueDate:nil];
-                            [weakSelf refreshTableView];
-                          }
+                                                style:UIAlertActionStyleDefault
+                                              handler:
+                        ^(UIAlertAction * _Nonnull action) {
+                          [[EZHCoreDataManager sharedManager]
+                           addToDoItemByTitle:alertController.textFields.firstObject.text
+                           complete:NO
+                           priority:5
+                           startDate:nil
+                           dueDate:nil];
+                          [weakSelf refreshTableView];
+                        }
                         ];
   
   [alertController addAction:add];
   
   UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
-                                         style:UIAlertActionStyleCancel
-                                         handler:nil];
+                                                   style:UIAlertActionStyleCancel
+                                                 handler:nil];
   
   [alertController addAction:cancel];
   
@@ -114,7 +117,7 @@ NSString *cellName = @"ToDoCell";
 #pragma mark - Guesture
 
 -(void)longPress:(id)sender {
-
+  
   UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
   UIGestureRecognizerState state = longPress.state;
   
@@ -139,7 +142,7 @@ NSString *cellName = @"ToDoCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[coreDataManager fetchAllToDoItems] count];;
+  return [[coreDataManager fetchAllToDoItems] count];;
 }
 
 
@@ -161,7 +164,7 @@ NSString *cellName = @"ToDoCell";
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+  return YES;
 }
 
 
@@ -172,9 +175,9 @@ NSString *cellName = @"ToDoCell";
     int itemIdx = self.toDoItems[indexPath.row].idx;
     [coreDataManager deleteToDoItemByIdx:itemIdx];
     [self refreshTableView];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+  } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+  }
 }
 
 
@@ -196,19 +199,19 @@ NSString *cellName = @"ToDoCell";
 
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+  // Return NO if you do not want the item to be re-orderable.
+  return YES;
 }
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

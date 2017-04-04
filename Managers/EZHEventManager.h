@@ -7,9 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ToDoItem+CoreDataProperties.h"
+
+@import EventKit;
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^EZHFetchRemindersCompletionBlock)(NSArray<EKReminder *>* _Nullable reminders);
+
 
 @interface EZHEventManager : NSObject
 
++(id)sharedManager;
 
+@property (nonatomic, strong) EKEventStore *eventStore;
+
+@property (nonatomic, strong) EKCalendar *calendar;
+
+@property (nonatomic, assign) BOOL isAccessToEventStoreGranted;
+
+-(void)fetchReminderWith:(nullable EZHFetchRemindersCompletionBlock)block;
+
+-(void)addReminder:(ToDoItem *)toDoItem;
+
+-(BOOL)itemHasReminder:(NSString *)toDoItemTitle;
+
+-(void)deleteReminderByToDoItemTitle:(NSString *)title;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F63061F61E93424400985E39 /* EZHHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F63061F51E93424400985E39 /* EZHHelper.m */; };
+		F63061F91E93507400985E39 /* NSDate+Convertor.m in Sources */ = {isa = PBXBuildFile; fileRef = F63061F81E93507400985E39 /* NSDate+Convertor.m */; };
 		F6513AE31E8B5DF900F81FC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6513AE21E8B5DF900F81FC0 /* main.m */; };
 		F6513AE61E8B5DF900F81FC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6513AE51E8B5DF900F81FC0 /* AppDelegate.m */; };
 		F6513AEC1E8B5DF900F81FC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6513AEA1E8B5DF900F81FC0 /* Main.storyboard */; };
@@ -20,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F63061F41E93424400985E39 /* EZHHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZHHelper.h; sourceTree = "<group>"; };
+		F63061F51E93424400985E39 /* EZHHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZHHelper.m; sourceTree = "<group>"; };
+		F63061F71E93507400985E39 /* NSDate+Convertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Convertor.h"; sourceTree = "<group>"; };
+		F63061F81E93507400985E39 /* NSDate+Convertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Convertor.m"; sourceTree = "<group>"; };
 		F6513ADE1E8B5DF900F81FC0 /* EKEvent_ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EKEvent_ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6513AE21E8B5DF900F81FC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F6513AE41E8B5DF900F81FC0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -50,9 +56,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F63061F31E93422D00985E39 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F63061F41E93424400985E39 /* EZHHelper.h */,
+				F63061F51E93424400985E39 /* EZHHelper.m */,
+				F63061F71E93507400985E39 /* NSDate+Convertor.h */,
+				F63061F81E93507400985E39 /* NSDate+Convertor.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 		F6513AD51E8B5DF900F81FC0 = {
 			isa = PBXGroup;
 			children = (
+				F63061F31E93422D00985E39 /* Helper */,
 				F6513B121E8B6B8E00F81FC0 /* VC */,
 				F6513B051E8B604700F81FC0 /* CoreData */,
 				F6513AFE1E8B5E2E00F81FC0 /* Managers */,
@@ -195,8 +213,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6513AEF1E8B5DF900F81FC0 /* EKEvent_ToDoList.xcdatamodeld in Sources */,
+				F63061F91E93507400985E39 /* NSDate+Convertor.m in Sources */,
 				F6513B271E8C7F2700F81FC0 /* EZHEventManager.m in Sources */,
 				F6513B1E1E8B6BD800F81FC0 /* EZHTableViewController.m in Sources */,
+				F63061F61E93424400985E39 /* EZHHelper.m in Sources */,
 				F6513B041E8B5E8800F81FC0 /* EZHCoreDataManager.m in Sources */,
 				F6513AE61E8B5DF900F81FC0 /* AppDelegate.m in Sources */,
 				F6513B1B1E8B6BCC00F81FC0 /* EZHTableViewCell.m in Sources */,

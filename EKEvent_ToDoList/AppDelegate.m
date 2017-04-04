@@ -8,16 +8,13 @@
 
 #import "AppDelegate.h"
 #import "EZHCoreDataManager.h"
-
-@interface AppDelegate ()
-
-@end
+#import "EZHEventManager.h"
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  // Override point for customization after application launch.
+  [EZHEventManager sharedManager];
   return YES;
 }
 
